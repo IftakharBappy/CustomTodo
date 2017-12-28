@@ -8,6 +8,11 @@ class TodoAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     prepopulated_fields = {'description': ('name',)}
 
+    def get_queryset(self, request):
+        queryset = super(TodoAdmin, self).get_queryset(request)
+        queryset = queryset.order_by('name')
+        return queryset
+
 
 admin.site.register(Todo, TodoAdmin)
 
